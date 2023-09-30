@@ -1,0 +1,139 @@
+:root {
+   --app-background-color: #f7cae4;
+   --background-color: #b186f1;
+   --background-shadow-color: #b186f170;
+   --keys-text-color: #666;
+
+   --output-text-color: #2f2c79;
+   --output-background-color: #dfcae1;
+   --output-shadow-color: #fa34df60;
+
+   --number-background-color: #caacf9;
+   --number-shadow-color: #171a4a30;
+   --number-hover-color: #caacf930;
+
+   --operation-background-color: #e5dde6;
+   --operation-hover-color: #e5dde630;
+
+   --equal-background-color: #ecd6c0;
+   --equal-hover-color: #ecd6c080;
+
+   --clear-key-background-color: #ed2745;
+   --clear-key-shadow-color: #ed274590;
+   --clear-key-hover-color: #ed274599;
+}
+
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+main {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   width: 100vw;
+   height: 100vh;
+
+   background-color: var(--app-background-color);
+}
+
+article {
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   grid-template-rows: repeat(5, 1fr);
+   gap: 12px;
+
+   width: 100%;
+   max-width: 390px;
+   height: 100%;
+   max-height: 430px;
+
+   padding: 75px 20px;
+   border-radius: 5px;
+   background-color: var(--background-color);
+}
+
+#output {
+   display: flex;
+   align-items: center;
+   grid-column-start: 2;
+   grid-column-end: 5;
+
+   border-radius: 3px;
+   border: none;
+   outline: none;
+   padding-left: 8px;
+
+   background-color: var(--output-background-color);
+   box-shadow: 0 5px inset var(--output-shadow-color);
+
+   font-size: 18px;
+   color: var(--output-text-color);
+   cursor: default;
+}
+
+#output::-webkit-outer-spin-button,
+#output::-webkit-inner-spin-button,
+#output {
+   -webkit-appearance: none;
+   -moz-appearance: textfield;
+   margin: 0;
+}
+
+
+.key {
+   width: 100%;
+
+   background-color: var(--number-background-color);
+   border: none;
+   border-radius: 5px;
+   outline: none;
+   box-shadow: 0 5px 0 var(--number-shadow-color);
+
+   text-align: center;
+   font-size: 21px;
+   color: var(--keys-text-color);
+
+   cursor: pointer;
+   font-size: 18px;
+}
+
+.operation-key {
+   background-color: var(--operation-background-color);
+}
+
+#equal-key {
+   background-color: var(--equal-background-color);
+}
+
+#clear-key {
+   background-color: var(--clear-key-background-color);
+   box-shadow: 0 5px 0 var(--clear-key-shadow-color);
+   color: #ffffff;
+}
+
+.key:active,
+#clear-key:active {
+   translate: 0 5px;
+   box-shadow: none;
+   transition: all 0.1s ease-out;
+}
+
+.operation-key:hover {
+   background-color: var(--operation-hover-color);
+}
+
+#clear-key:hover {
+   background-color: var(--clear-key-hover-color);
+}
+
+#equal-key:hover {
+   background-color: var(--equal-hover-color)
+}
+
+.number-key:hover {
+   background-color: var(--number-hover-color);
+}
