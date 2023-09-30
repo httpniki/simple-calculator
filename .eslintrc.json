@@ -11,5 +11,12 @@
         "sourceType": "module"
     },
     "rules": {
+      "no-new": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/prefer-ts-expect-error": "off" ,
+      "indent": ["error", 3], "@typescript-eslint/indent": "off",
+      "@typescript-eslint/no-unnecessary-type-assertion": "off",
+      "no-unused-vars": "warn",
+      "@typescript-eslint/no-unused-vars": "off"
     }
 }
