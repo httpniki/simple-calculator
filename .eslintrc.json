@@ -18,6 +18,8 @@
       "@typescript-eslint/no-unnecessary-type-assertion": "off",
       "no-unused-vars": "warn",
       "@typescript-eslint/no-unused-vars": "off",
-      "@typescript-eslint/strict-boolean-expressions": "off"
+      "@typescript-eslint/strict-boolean-expressions": "off",
+      "no-eval": "off",
+      "curly": "off"
     }
 }
