@@ -2,7 +2,7 @@ export default class Main {
    private readonly disabledKeysToDisplay = ['C', '=']
    private readonly $keys = document.querySelectorAll('.key') as NodeListOf<HTMLInputElement>
    private readonly $output = document.getElementById('output') as HTMLInputElement
-   private output = ''
+   private valueToDisplay = ''
    constructor () {
       this.setup()
    }
@@ -13,13 +13,16 @@ export default class Main {
             const target = event.target as HTMLInputElement
             const isDisabledToDisplay = !this.disabledKeysToDisplay.includes(key.value)
 
-            if (target.value === key.value && isDisabledToDisplay)
-               this.output = this.$output.value + target.value
+            if (target.value !== key.value) return
+            if (this.$output.value === '0') this.valueToDisplay = target.value
 
-            if (target.value === 'C') this.output = ''
-            if (target.value === '=' && this.output) this.output = eval(this.$output.value).toString()
+            if (isDisabledToDisplay && this.$output.value !== '0')
+               this.valueToDisplay = this.$output.value + target.value
 
-            this.$output.value = this.output
+            if (target.value === 'C') this.valueToDisplay = '0'
+            if (target.value === '=' && this.valueToDisplay) this.valueToDisplay = eval(this.$output.value).toString()
+
+            this.$output.value = this.valueToDisplay
          })
       })
    }
