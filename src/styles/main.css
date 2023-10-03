@@ -71,6 +71,7 @@ article {
    box-shadow: 0 5px inset var(--output-shadow-color);
 
    font-size: 18px;
+   text-overflow: ellipsis;
    color: var(--output-text-color);
    cursor: default;
 }
