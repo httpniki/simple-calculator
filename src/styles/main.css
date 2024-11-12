@@ -117,7 +117,8 @@ article {
 }
 
 .key:active,
-#clear-key:active {
+#clear-key:active,
+.isActive {
    translate: 0 5px;
    box-shadow: none;
    transition: all 0.1s ease-out;

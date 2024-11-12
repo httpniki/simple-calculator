@@ -1,63 +1,96 @@
 export default class Main {
-   private readonly disabledKeysToDisplay = ['C', '=']
-   private readonly $keys = document.querySelectorAll('.key') as NodeListOf<HTMLInputElement>
-   private readonly $output = document.getElementById('output') as HTMLInputElement
-   private valueToRender = ''
+   private readonly $output: HTMLInputElement
+   private readonly $buttonList: NodeListOf<HTMLButtonElement>
+   private readonly keys: string[]
+   private value = ''
+
    constructor () {
-      this.setup()
-      this.keybinds()
+      this.$output = document.getElementById('output') as HTMLInputElement
+      this.$buttonList = document.querySelectorAll('.key') as NodeListOf<HTMLButtonElement>
+      this.keys = [...Array(10).keys(), '*', '/', '-', '+', '.'].map(key => key.toString())
    }
 
-   private setup(): void {
-      this.$keys.forEach((key) => {
-         key.addEventListener('click', (event) => {
-            const target = event.target as HTMLInputElement
-            if (target.value !== key.value) return
+   public setup(): void {
+      document.addEventListener('click', (event) => {
+         const target = event.target as HTMLButtonElement
+         const isNumberKey = target.classList.contains('number-key')
+         const isOperationKey = target.classList.contains('operation-key')
 
-            if (target.value === 'C') this.clearOutput()
-            if (target.value === '=' && this.valueToRender) this.solve()
+         if (isNumberKey || isOperationKey) {
+            this.renderInput(target.textContent as string)
+         }
 
-            this.updateOutputValue(target.value)
-            this.showOutputValue()
-         })
+         if (target.textContent === 'C') {
+            this.clearOutput()
+         }
+
+         if (target.textContent === '=') {
+            this.solve()
+         }
       })
-   }
-
-   private keybinds(): void {
-      const keys = [...Array(10).keys(), '*', '/', '-', '+'].map(key => key.toString())
 
       document.addEventListener('keydown', (event) => {
+         const key = event.key.toString()
+
+         this.$buttonList.forEach((button) => {
+            const isEqualKey = (key === '=' || key === 'Enter') && button.textContent === '='
+            const isClearKey = (key === 'Escape' || key === 'Backspace') && button.textContent === 'C'
+            const isNumberKey = this.keys.some(el => el === key) && button.textContent === key
+
+            if (isEqualKey || isClearKey || isNumberKey) {
+               button.classList.add('isActive')
+            }
+         })
+
          switch (event.key) {
-         case keys.filter(key => key === event.key)[0]:
-            this.updateOutputValue(event.key)
-            this.showOutputValue()
+         case this.keys.filter(key => key === event.key)[0]:
+            this.renderInput(event.key)
             break
          case 'Enter':
             this.solve()
-            this.showOutputValue()
+            break
+         case '=':
+            this.solve()
+            break
+         case 'Backspace':
+            this.clearOutput()
+            break
+         case 'Escape':
+            this.clearOutput()
             break
          }
       })
+
+      document.addEventListener('keyup', () => {
+         this.$buttonList.forEach((button) => { button.classList.remove('isActive') })
+      })
    }
 
-   private updateOutputValue(value: string): void {
-      if (this.disabledKeysToDisplay.includes(value)) return
+   private renderInput(value: string): void {
+      let newValue: string = this.value
 
-      if (this.$output.value === '0') this.valueToRender = value
-      if (this.$output.value !== '0') this.valueToRender = this.$output.value + value
-   }
+      if (this.$output.value === '0') newValue = value
+      if (this.$output.value !== '0') newValue = newValue + value
 
-   private showOutputValue(): void {
-      this.$output.value = this.valueToRender
+      this.$output.value = newValue
+      this.value = newValue
    }
 
    private clearOutput(): void {
-      this.valueToRender = '0'
+      this.value = '0'
+      this.$output.value = '0'
    }
 
    private solve(): void {
-      this.valueToRender = eval(this.$output.value).toString()
+      try {
+         const result = eval(this.value).toString()
+
+         this.$output.value = result
+         this.value = result
+      } catch (error) {
+         console.log('Ups, Nothing to resolve ;)')
+      }
    }
 }
 
-new Main()
+new Main().setup()
