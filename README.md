@@ -1,9 +1,9 @@
 <h1 align="center">
-  Simple Calculator 
+  Simple Calculator 🧮
 </h1>
 
 <p align="center">
-  A simple and beautiful calculator written in JavaScript.
+  A simple and ✨ beautiful ✨ calculator written in JavaScript.
 </p>
 
 <div align="center">
