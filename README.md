@@ -1,5 +1,12 @@
-# Simple Calculator #
+<h1 align="center">
+  Simple Calculator 
+</h1>
 
-A simple calculator written in JavaScript.
+<p align="center">
+  A simple and beautiful calculator written in JavaScript.
+</p>
 
-![alt text](/public/demo.gif "demo")
+<div align="center">
+  <img alt="demo" src="/public/demo.gif"/>
+</div>
+
